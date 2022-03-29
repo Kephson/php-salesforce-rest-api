@@ -5,7 +5,7 @@ Forked from:
 
 ## Install
 
-Via **[composer](https://getcomposer.org/)**
+Via [Packagist](https://packagist.org/packages/ehaerer/php-salesforce-rest-api) with **[composer](https://getcomposer.org/)**:
 
 ``` bash
 composer require ehaerer/php-salesforce-rest-api
