@@ -32,7 +32,11 @@ After saving, you will now be given a _consumer key_ and _consumer secret_. Upda
 
 # Setup
 
-Authentication
+### Example
+
+See a full example which could be tested with [ddev local](https://getcomposer.org/) in [/example folder](example/) folder.
+
+### Authentication
 
 ```bash
     $options = [
@@ -52,69 +56,80 @@ Authentication
     /* if you need access token or instance url */
     $accessToken = $salesforce->getAccessToken();
     $instanceUrl = $salesforce->getInstanceUrl();
+
+    /* create salesforceFunctions object with instance, accesstoken and API version */
+    $salesforceFunctions = new \EHAERER\Salesforce\SalesforceFunctions($instanceUrl, $accessToken, "v52.0");
 ```
 
-Query
+####Query
 
 ```bash
     $query = 'SELECT Id,Name FROM ACCOUNT LIMIT 100';
 
-    $salesforceFunctions = new \EHAERER\Salesforce\SalesforceFunctions($instanceUrl, $accessToken);
+    $additionalHeaders = ['key' => 'value'];
+
     /* returns array with the queried data */
-    $data = $salesforceFunctions->query($query);
+    $data = $salesforceFunctions->query($query, $additionalHeaders);
 
 ```
 
-Create
+#### Create
 
 ```bash
 
     $data = [
        'Name' => 'Some name',
     ];
+    $additionalHeaders = ['key' => 'value'];
 
-    /* returns the id of the created object */
-    $salesforceFunctions->create('Account', $data);
+    /* returns the id of the created object or full response */
+    $accountId = $salesforceFunctions->create('Account', $data, $additionalHeaders);
+    $fullResponse = $salesforceFunctions->create('Account', $data, $additionalHeaders, true);
 ```
 
-Update
+#### Update
 
 ```bash
-    $new_data = [
+    $newData = [
        'Name' => 'another name',
     ];
+    $additionalHeaders = ['key' => 'value'];
 
     /* returns statuscode */
-    $salesforceFunctions->update('Account', $id, $new_data);
+    $salesforceFunctions->update('Account', $id, $newData, $additionalHeaders);
 ```
 
-Upsert
+#### Upsert
 
 ```bash
-    $new_data = [
+    $newData = [
        'Name' => 'another name',
     ];
+    $additionalHeaders = ['key' => 'value'];
 
     /* returns statuscode */
-    $salesforceFunctions->upsert('Account', 'API Name/ Field Name', 'value', $new_data);
+    $salesforceFunctions->upsert('Account', 'API Name/ Field Name', 'value', $newData, $additionalHeaders);
 ```
 
-Delete
+#### Delete
 
 ```bash
-    $salesforceFunctions->delete('Account', $id);
+    $additionalHeaders = ['key' => 'value'];
+    $salesforceFunctions->delete('Account', $id, $additionalHeaders);
 ```
 
-Describe
+#### Describe
 
 ```bash
-    $salesforceFunctions->describe('Account');
+    $additionalHeaders = ['key' => 'value'];
+    $salesforceFunctions->describe('Account', $additionalHeaders);
 ```
 
-Custom endpoint
+#### Custom endpoint
 
 ```bash
-    $salesforceFunctions->customEndpoint('apex/myCustomEndpoint', $data, 200);
+    $additionalHeaders = ['key' => 'value'];
+    $salesforceFunctions->customEndpoint('apex/myCustomEndpoint', $data, 200, $additionalHeaders);
 ```
 
 #### Changelog: ####
@@ -122,6 +137,7 @@ Custom endpoint
 - updated Guzzle dependency to ^7.4
 - added full example in /example folder with ddev local configuration
 - added option to add additional headers like on https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm
+- updated documentation
 
 ##### 06.05.2021 #####
 - [breaking] switched version parameter in constructor to the end
