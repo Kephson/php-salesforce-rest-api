@@ -34,7 +34,7 @@ After saving, you will now be given a _consumer key_ and _consumer secret_. Upda
 
 ### Example
 
-See a full example which could be tested with [ddev local](https://getcomposer.org/) in [/example folder](example/) folder.
+See a full example which could be tested with [ddev local](https://github.com/drud/ddev/) in [/example folder](example/) folder.
 
 ### Authentication
 
