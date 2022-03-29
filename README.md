@@ -61,7 +61,7 @@ See a full example which could be tested with [ddev local](https://github.com/dr
     $salesforceFunctions = new \EHAERER\Salesforce\SalesforceFunctions($instanceUrl, $accessToken, "v52.0");
 ```
 
-####Query
+#### Query
 
 ```bash
     $query = 'SELECT Id,Name FROM ACCOUNT LIMIT 100';
