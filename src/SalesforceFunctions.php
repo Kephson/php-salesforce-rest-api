@@ -104,21 +104,25 @@ class SalesforceFunctions
 
     /**
      * @param string $query
+     * @param array $additionalHeaders
      * @return mixed Array or exception
      * @throws GuzzleException
      */
-    public function query($query)
+    public function query($query, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/query";
+
+        $headers = $this->getHeaders(
+            ['Authorization' => "OAuth {$this->accessToken}"],
+            $additionalHeaders
+        );
 
         $client = new Client();
         $request = $client->request(
             'GET',
             $url,
             [
-                'headers' => [
-                    'Authorization' => "OAuth {$this->accessToken}"
-                ],
+                'headers' => $headers,
                 'query' => [
                     'q' => $query
                 ]
@@ -132,13 +136,22 @@ class SalesforceFunctions
      * @param $object
      * @param $field
      * @param $id
+     * @param array $additionalHeaders
      * @return mixed
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function retrieve($object, $field, $id)
+    public function retrieve($object, $field, $id, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$field}/{$id}";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json'
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -147,10 +160,7 @@ class SalesforceFunctions
                 'GET',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                 ]
             );
         } catch (ClientException $e) {
@@ -171,13 +181,23 @@ class SalesforceFunctions
     /**
      * @param $object
      * @param $data
+     * @param array $additionalHeaders
+     * @param bool $fullResponse
      * @return mixed
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function create($object, $data)
+    public function create($object, $data, $additionalHeaders = [], $fullResponse = false)
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json'
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -186,10 +206,7 @@ class SalesforceFunctions
                 'POST',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                     'json' => $data
                 ]
             );
@@ -206,6 +223,9 @@ class SalesforceFunctions
         }
 
         $response = json_decode($request->getBody(), true);
+        if ($fullResponse) {
+            return $response;
+        }
         return $response["id"];
     }
 
@@ -213,13 +233,22 @@ class SalesforceFunctions
      * @param $object
      * @param $id
      * @param $data
+     * @param array $additionalHeaders
      * @return int
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function update($object, $id, $data)
+    public function update($object, $id, $data, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$id}";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json'
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -228,10 +257,7 @@ class SalesforceFunctions
                 'PATCH',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth $this->accessToken",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                     'json' => $data
                 ]
             );
@@ -255,13 +281,22 @@ class SalesforceFunctions
      * @param $field
      * @param $id
      * @param $data
+     * @param array $additionalHeaders
      * @return int
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function upsert($object, $field, $id, $data)
+    public function upsert($object, $field, $id, $data, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$field}/{$id}";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json'
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -270,10 +305,7 @@ class SalesforceFunctions
                 'PATCH',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                     'json' => $data
                 ]
             );
@@ -295,13 +327,21 @@ class SalesforceFunctions
     /**
      * @param $object
      * @param $id
+     * @param array $additionalHeaders
      * @return bool
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function delete($object, $id)
+    public function delete($object, $id, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$id}";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}"
+            ],
+            $additionalHeaders
+        );
 
         try {
             $client = new Client();
@@ -309,9 +349,7 @@ class SalesforceFunctions
                 'DELETE',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                    ]
+                    'headers' => $headers
                 ]
             );
         } catch (ClientException $e) {
@@ -331,13 +369,22 @@ class SalesforceFunctions
 
     /**
      * @param $object
+     * @param array $additionalHeaders
      * @return mixed
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function describe($object)
+    public function describe($object, $additionalHeaders = [])
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/describe/";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json',
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -346,10 +393,7 @@ class SalesforceFunctions
                 'GET',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                 ]
             );
         } catch (ClientException $e) {
@@ -371,14 +415,23 @@ class SalesforceFunctions
      * @param string $customEndpoint all behind /services/
      * @param $data
      * @param int $successStatusCode
+     * @param array $additionalHeaders
      * @return ResponseInterface
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function customEndpoint($customEndpoint, $data, $successStatusCode = 200)
+    public function customEndpoint($customEndpoint, $data, $successStatusCode = 200, $additionalHeaders = [])
     {
         /* customEndpoint could be all behind /services/ */
         $url = "{$this->instanceUrl}/services/{$customEndpoint}";
+
+        $headers = $this->getHeaders(
+            [
+                'Authorization' => "OAuth {$this->accessToken}",
+                'Content-type' => 'application/json',
+            ],
+            $additionalHeaders
+        );
 
         $client = new Client();
 
@@ -387,10 +440,7 @@ class SalesforceFunctions
                 'POST',
                 $url,
                 [
-                    'headers' => [
-                        'Authorization' => "OAuth {$this->accessToken}",
-                        'Content-type' => 'application/json'
-                    ],
+                    'headers' => $headers,
                     'json' => $data
                 ]
             );
@@ -407,5 +457,17 @@ class SalesforceFunctions
         }
 
         return $request;
+    }
+
+    /**
+     * merge default headers with additional headers
+     *
+     * @param array $defaultHeaders
+     * @param array $additionalHeaders
+     * @return array
+     */
+    protected function getHeaders($defaultHeaders, $additionalHeaders)
+    {
+        return array_merge_recursive($defaultHeaders, $additionalHeaders);
     }
 }

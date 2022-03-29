@@ -118,6 +118,11 @@ Custom endpoint
 ```
 
 #### Changelog: ####
+##### 29.03.2022 #####
+- updated Guzzle dependency to ^7.4
+- added full example in /example folder with ddev local configuration
+- added option to add additional headers like on https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/headers.htm
+
 ##### 06.05.2021 #####
 - [breaking] switched version parameter in constructor to the end
 

@@ -51,6 +51,5 @@ Temporary Items
 
 # remove npm folders and config
 node_modules/
-.ddev
 var/
-vendor/
+example/config.php

@@ -30,9 +30,13 @@
 		}
 	],
 	"require": {
-		"guzzlehttp/guzzle": "^6.2",
+		"guzzlehttp/guzzle": "^7.4",
 		"php": ">=7.0",
 		"ext-json": "*"
+	}
+	,
+	"require-dev": {
+		"roave/security-advisories": "dev-latest"
 	},
 	"autoload": {
 		"psr-4": {
