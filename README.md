@@ -3,6 +3,11 @@
 Forked from:
 ```bjsmasth/php-salesforce-rest-api``` ```Cleeng/php-salesforce-rest-api``` ```jerkob/php-salesforce-rest-api-forked```
 
+## Similar packages
+
+* SOQL with Doctrine DBAL: https://github.com/codelicia/trineforce
+* Interacting with Salesforce objects: https://github.com/roblesterjr04/EloquentSalesForce
+
 ## Install
 
 Via [Packagist](https://packagist.org/packages/ehaerer/php-salesforce-rest-api) with **[composer](https://getcomposer.org/)**:
