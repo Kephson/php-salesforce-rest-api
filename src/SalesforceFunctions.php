@@ -267,7 +267,8 @@ class SalesforceFunctions
 
         $status = $request->getStatusCode();
 
-        if ($status !== 204) {
+        /* @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/errorcodes.htm */
+        if ($status !== 204 || $status !== 201 || $status !== 200) {
             throw new SalesforceException(
                 "Error: call to URL {$url} failed with status {$status}, response: {$request->getReasonPhrase()}"
             );
@@ -315,7 +316,8 @@ class SalesforceFunctions
 
         $status = $request->getStatusCode();
 
-        if ($status !== 204 && $status !== 201) {
+        /* @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/errorcodes.htm */
+        if ($status !== 204 || $status !== 201 || $status !== 200) {
             throw new SalesforceException(
                 "Error: call to URL {$url} failed with status {$status}, response: {$request->getReasonPhrase()}"
             );
