@@ -1,46 +1,51 @@
 {
-	"name": "ehaerer/php-salesforce-rest-api",
-	"description": "PHP Salesforce REST API wrapper",
-	"license": "MIT",
-	"keywords": [
-		"php salesforce",
-		"php salesforce rest",
-		"php salesforce rest api"
-	],
-	"authors": [
-		{
-			"name": "Bijesh Shrestha (bjsmasth)",
-			"email": "bjsmasth@gmail.com",
-			"homepage": "https://github.com/bjsmasth"
-		},
-		{
-			"name": "Maciej Wilczyński (Cleeng)",
-			"email": "m@lupin.rocks",
-			"homepage": "https://github.com/mLupine"
-		},
-		{
-			"name": "Jacob Terry (jerkob)",
-			"email": "jsterry@gmail.com",
-			"homepage": "https://www.jacobterry.com"
-		},
-		{
-			"name": "Ephraim Härer (kephson)",
-			"email": "mail@ephra.im",
-			"homepage": "https://ephra.im"
-		}
-	],
-	"require": {
-		"guzzlehttp/guzzle": "^7.4",
-		"php": ">=7.0",
-		"ext-json": "*"
-	}
-	,
-	"require-dev": {
-		"roave/security-advisories": "dev-latest"
-	},
-	"autoload": {
-		"psr-4": {
-			"EHAERER\\Salesforce\\": "src/"
-		}
-	}
+  "name": "ehaerer/php-salesforce-rest-api",
+  "description": "PHP Salesforce REST API wrapper",
+  "license": "MIT",
+  "keywords": [
+    "php salesforce",
+    "php salesforce rest",
+    "php salesforce rest api"
+  ],
+  "authors": [
+    {
+      "name": "Bijesh Shrestha (bjsmasth)",
+      "email": "bjsmasth@gmail.com",
+      "homepage": "https://github.com/bjsmasth"
+    },
+    {
+      "name": "Maciej Wilczyński (Cleeng)",
+      "email": "m@lupin.rocks",
+      "homepage": "https://github.com/mLupine"
+    },
+    {
+      "name": "Jacob Terry (jerkob)",
+      "email": "jsterry@gmail.com",
+      "homepage": "https://www.jacobterry.com"
+    },
+    {
+      "name": "Ephraim Härer (kephson)",
+      "email": "mail@ephra.im",
+      "homepage": "https://ephra.im"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^7.4"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.28",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "EHAERER\\Salesforce\\": "src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    }
+  }
 }

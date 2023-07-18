@@ -1,5 +1,4 @@
 vendor/
-composer.lock
 
 # remove PHPStorm folders
 *.idea
