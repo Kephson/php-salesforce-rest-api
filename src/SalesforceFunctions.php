@@ -422,7 +422,7 @@ class SalesforceFunctions
      * @throws GuzzleException
      * @throws SalesforceException
      */
-    public function customEndpoint($customEndpoint, $data, $successStatusCode = 200, $additionalHeaders = [])
+    public function customEndpoint($customEndpoint, $data, $successStatusCode = 200, $additionalHeaders = [], $method = 'POST')
     {
         /* customEndpoint could be all behind /services/ */
         $url = "{$this->instanceUrl}/services/{$customEndpoint}";
@@ -439,7 +439,7 @@ class SalesforceFunctions
 
         try {
             $request = $client->request(
-                'POST',
+                $method,
                 $url,
                 [
                     'headers' => $headers,
