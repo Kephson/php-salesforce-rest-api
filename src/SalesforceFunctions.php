@@ -37,8 +37,8 @@ class SalesforceFunctions
     /**
      * SalesforceFunctions constructor.
      *
-     * @param null $instanceUrl
-     * @param null $accessToken
+     * @param string|null $instanceUrl
+     * @param string|null $accessToken
      * @param string $apiVersion Default API version is used from constant
      */
     public function __construct($instanceUrl = null, $accessToken = null, $apiVersion = self::apiVersion)
