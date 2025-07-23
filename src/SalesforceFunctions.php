@@ -247,7 +247,7 @@ class SalesforceFunctions
      * @param mixed $data
      * @param array<string, mixed> $additionalHeaders
      * @return int The request's status code (200, 201, or 204)
-     * @throws GuzzleException in case of an error response ({@see GuzzleHttp\Exception\BadResponseException} or {@see GuzzleHttp\Exception\RequestException}
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException})
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function update(string $object, string $id, mixed $data, array $additionalHeaders = []): mixed
@@ -297,7 +297,7 @@ class SalesforceFunctions
      * @param mixed $data
      * @param array<string, mixed> $additionalHeaders
      * @return int The status code of the request
-     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException})
      * @throws SalesforceException On client error (auth, rate limit, etc.) or multiple objects matching the ID.
      */
     public function upsert(string $object, string $field, string $id, mixed $data, array $additionalHeaders = []): int

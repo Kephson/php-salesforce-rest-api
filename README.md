@@ -1,5 +1,7 @@
 # PHP Salesforce REST API wrapper
 
+-- Small and easy to use -- 
+
 Forked from:
 ```bjsmasth/php-salesforce-rest-api``` ```Cleeng/php-salesforce-rest-api``` ```jerkob/php-salesforce-rest-api-forked```
 
