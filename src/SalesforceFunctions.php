@@ -103,10 +103,15 @@ class SalesforceFunctions
     }
 
     /**
-     * @param string $query
-     * @param array $additionalHeaders
-     * @return mixed Array or exception
-     * @throws GuzzleException
+     * Run a SOQL query, returning it's output.
+     *
+     * @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_query.htm
+     *
+     * @param string $query A SOQL query
+     * @param array<string, string> $additionalHeaders
+     * @return array<string, mixed>|bool|null Returns the decoded value as an associative array,
+     *                                        or null if the JSON cannot be decoded.
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      */
     public function query($query, $additionalHeaders = [])
     {
@@ -133,13 +138,16 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param $field
-     * @param $id
-     * @param array $additionalHeaders
-     * @return mixed
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * Retrieve a field from a specified object.
+     *
+     * @param string $object
+     * @param string $field
+     * @param string $id
+     * @param array<string, mixed> $additionalHeaders
+     * @return array<string, mixed>|bool|null Returns the decoded value as an associative array,
+     *                                        or null if the JSON cannot be decoded.
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function retrieve($object, $field, $id, $additionalHeaders = [])
     {
@@ -179,13 +187,15 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param $data
-     * @param array $additionalHeaders
-     * @param bool $fullResponse
-     * @return mixed
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * Create (insert) an object.
+     *
+     * @param string $object
+     * @param mixed $data A JSON-encodable object
+     * @param array<string, mixed> $additionalHeaders
+     * @param bool $fullResponse If true, return the full response object. If false, the ID.
+     * @return string|mixed The object ID by default. If `$fullResponse` is true, a decoded associative array (or null on failure.)
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function create($object, $data, $additionalHeaders = [], $fullResponse = false)
     {
@@ -230,13 +240,15 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param $id
-     * @param $data
-     * @param array $additionalHeaders
-     * @return int
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * Update an existing object by ID.
+     *
+     * @param string $object
+     * @param string $id
+     * @param mixed $data
+     * @param array<string, mixed> $additionalHeaders
+     * @return int The request's status code (200, 201, or 204)
+     * @throws GuzzleException in case of an error response ({@see GuzzleHttp\Exception\BadResponseException} or {@see GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function update($object, $id, $data, $additionalHeaders = [])
     {
@@ -278,14 +290,15 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param $field
-     * @param $id
-     * @param $data
-     * @param array $additionalHeaders
-     * @return int
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * Upsert an object. If an ID exists, the object is updated. If not, the object is created. If multiple objects match the ID, a SalesforceException is thrown.
+     * @param string $object
+     * @param string $field
+     * @param string $id
+     * @param mixed $data
+     * @param array<string, mixed> $additionalHeaders
+     * @return int The status code of the request
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.) or multiple objects matching the ID.
      */
     public function upsert($object, $field, $id, $data, $additionalHeaders = [])
     {
@@ -316,7 +329,7 @@ class SalesforceFunctions
 
         $status = $request->getStatusCode();
 
-        /* @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/errorcodes.htm */
+        /** @see https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/errorcodes.htm */
         if ($status !== 204 && $status !== 201 && $status !== 200) {
             throw new SalesforceException(
                 "Error: call to URL {$url} failed with status {$status}, response: {$request->getReasonPhrase()}"
@@ -327,12 +340,12 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param $id
-     * @param array $additionalHeaders
+     * @param string $object
+     * @param string $id
+     * @param array<string, mixed> $additionalHeaders
      * @return bool
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function delete($object, $id, $additionalHeaders = [])
     {
@@ -370,11 +383,11 @@ class SalesforceFunctions
     }
 
     /**
-     * @param $object
-     * @param array $additionalHeaders
+     * @param string $object
+     * @param array<string, mixed> $additionalHeaders
      * @return mixed
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function describe($object, $additionalHeaders = [])
     {
@@ -415,12 +428,12 @@ class SalesforceFunctions
 
     /**
      * @param string $customEndpoint all behind /services/
-     * @param $data
+     * @param mixed $data
      * @param int $successStatusCode
-     * @param array $additionalHeaders
+     * @param array<string, mixed> $additionalHeaders
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws SalesforceException
+     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function customEndpoint($customEndpoint, $data, $successStatusCode = 200, $additionalHeaders = [], $method = 'POST')
     {
@@ -464,9 +477,9 @@ class SalesforceFunctions
     /**
      * merge default headers with additional headers
      *
-     * @param array $defaultHeaders
-     * @param array $additionalHeaders
-     * @return array
+     * @param array<string, string> $defaultHeaders
+     * @param array<string, mixed> $additionalHeaders
+     * @return array<string, mixed>
      */
     protected function getHeaders($defaultHeaders, $additionalHeaders)
     {
