@@ -17,17 +17,17 @@ class SalesforceFunctions
     /**
      * @var string
      */
-    const apiVersion = "v48.0";
+    private const apiVersion = "v48.0";
 
     /**
      * @var string
      */
-    protected $instanceUrl;
+    protected string $instanceUrl;
 
     /**
      * @var string
      */
-    protected $accessToken;
+    protected string $accessToken;
 
     /**
      * @var string
@@ -41,7 +41,7 @@ class SalesforceFunctions
      * @param string|null $accessToken
      * @param string $apiVersion Default API version is used from constant
      */
-    public function __construct($instanceUrl = null, $accessToken = null, $apiVersion = self::apiVersion)
+    public function __construct(?string $instanceUrl = null, ?string $accessToken = null, string $apiVersion = self::apiVersion)
     {
         $this->apiVersion = $apiVersion;
 
@@ -57,7 +57,7 @@ class SalesforceFunctions
     /**
      * @return string
      */
-    public function getInstanceUrl()
+    public function getInstanceUrl(): string
     {
         return $this->instanceUrl;
     }
@@ -65,7 +65,7 @@ class SalesforceFunctions
     /**
      * @param string $instanceUrl
      */
-    public function setInstanceUrl($instanceUrl)
+    public function setInstanceUrl(string $instanceUrl): void
     {
         $this->instanceUrl = $instanceUrl;
     }
@@ -73,7 +73,7 @@ class SalesforceFunctions
     /**
      * @return string
      */
-    public function getAccessToken()
+    public function getAccessToken(): string
     {
         return $this->accessToken;
     }
@@ -81,7 +81,7 @@ class SalesforceFunctions
     /**
      * @param string $accessToken
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken): void
     {
         $this->accessToken = $accessToken;
     }
@@ -89,7 +89,7 @@ class SalesforceFunctions
     /**
      * @return string
      */
-    public function getApiVersion()
+    public function getApiVersion(): string
     {
         return $this->apiVersion;
     }
@@ -97,7 +97,7 @@ class SalesforceFunctions
     /**
      * @param string $apiVersion
      */
-    public function setApiVersion($apiVersion)
+    public function setApiVersion(string $apiVersion): void
     {
         $this->apiVersion = $apiVersion;
     }
@@ -113,7 +113,7 @@ class SalesforceFunctions
      *                                        or null if the JSON cannot be decoded.
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      */
-    public function query($query, $additionalHeaders = [])
+    public function query(string $query, array $additionalHeaders = []): mixed
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/query";
 
@@ -149,7 +149,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function retrieve($object, $field, $id, $additionalHeaders = [])
+    public function retrieve(string $object, string $field, string $id, array $additionalHeaders = []): mixed
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$field}/{$id}";
 
@@ -197,7 +197,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function create($object, $data, $additionalHeaders = [], $fullResponse = false)
+    public function create(string $object, mixed $data, array $additionalHeaders = [], bool $fullResponse = false): mixed
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/";
 
@@ -250,7 +250,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see GuzzleHttp\Exception\BadResponseException} or {@see GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function update($object, $id, $data, $additionalHeaders = [])
+    public function update(string $object, string $id, mixed $data, array $additionalHeaders = []): mixed
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$id}";
 
@@ -300,7 +300,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.) or multiple objects matching the ID.
      */
-    public function upsert($object, $field, $id, $data, $additionalHeaders = [])
+    public function upsert(string $object, string $field, string $id, mixed $data, array $additionalHeaders = []): int
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$field}/{$id}";
 
@@ -347,7 +347,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function delete($object, $id, $additionalHeaders = [])
+    public function delete(string $object, string $id, array $additionalHeaders = []): bool
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/{$id}";
 
@@ -389,7 +389,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function describe($object, $additionalHeaders = [])
+    public function describe(string $object, array $additionalHeaders = []): mixed
     {
         $url = "{$this->instanceUrl}/services/data/{$this->apiVersion}/sobjects/{$object}/describe/";
 
@@ -435,7 +435,7 @@ class SalesforceFunctions
      * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
-    public function customEndpoint($customEndpoint, $data, $successStatusCode = 200, $additionalHeaders = [], $method = 'POST')
+    public function customEndpoint(string $customEndpoint, string $data, int $successStatusCode = 200, array $additionalHeaders = [], string $method = 'POST'): ResponseInterface
     {
         /* customEndpoint could be all behind /services/ */
         $url = "{$this->instanceUrl}/services/{$customEndpoint}";
@@ -481,7 +481,7 @@ class SalesforceFunctions
      * @param array<string, mixed> $additionalHeaders
      * @return array<string, mixed>
      */
-    protected function getHeaders($defaultHeaders, $additionalHeaders)
+    protected function getHeaders(array $defaultHeaders, array $additionalHeaders): array
     {
         return array_merge_recursive($defaultHeaders, $additionalHeaders);
     }
