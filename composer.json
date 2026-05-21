@@ -30,12 +30,12 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "ext-json": "*",
     "guzzlehttp/guzzle": "^7.4"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.28",
+    "ergebnis/composer-normalize": "^2.47",
     "roave/security-advisories": "dev-latest"
   },
   "autoload": {

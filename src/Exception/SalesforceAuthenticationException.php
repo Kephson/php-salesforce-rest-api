@@ -10,13 +10,13 @@ class SalesforceAuthenticationException extends SalesforceException
     /**
      * @var string
      */
-    private static $errorMessage = "Salesforce authentication request error";
+    private static string $errorMessage = "Salesforce authentication request error";
 
     /**
      * @param ClientException $e
      * @return SalesforceAuthenticationException|SalesforceException
      */
-    public static function fromClientException(ClientException $e)
+    public static function fromClientException(ClientException $e): SalesforceAuthenticationException|SalesforceException
     {
         $responseString = $e->getResponse()->getBody()->getContents();
         $responseData = json_decode($responseString, true);

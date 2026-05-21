@@ -6,12 +6,12 @@ interface AuthenticationInterface
 {
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getAccessToken();
+    public function getAccessToken(): string;
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getInstanceUrl();
+    public function getInstanceUrl(): string;
 }

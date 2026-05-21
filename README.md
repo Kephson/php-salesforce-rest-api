@@ -1,6 +1,6 @@
 # PHP Salesforce REST API wrapper
 
--- Small and easy to use -- 
+-- Small and easy to use --
 
 Forked from:
 ```bjsmasth/php-salesforce-rest-api``` ```Cleeng/php-salesforce-rest-api``` ```jerkob/php-salesforce-rest-api-forked```
@@ -140,6 +140,14 @@ See a full example which could be tested with [ddev local](https://github.com/dr
 ```
 
 #### Changelog: ####
+
+##### 21.05.2026 #####
+- raised PHP version to minimum version >= 8.2
+- updated ddev to latest version
+- updated example code
+- code cleanup
+- set default Salesforce API to v61.0 (Summer '24)
+
 ##### 29.03.2022 #####
 - updated Guzzle dependency to ^7.4
 - added full example in /example folder with ddev local configuration

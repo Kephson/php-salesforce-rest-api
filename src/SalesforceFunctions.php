@@ -17,7 +17,7 @@ class SalesforceFunctions
     /**
      * @var string
      */
-    private const apiVersion = "v48.0";
+    private const apiVersion = "v61.0";
 
     /**
      * @var string
@@ -32,7 +32,7 @@ class SalesforceFunctions
     /**
      * @var string
      */
-    protected $apiVersion = "v48.0";
+    protected string $apiVersion = "v61.0";
 
     /**
      * SalesforceFunctions constructor.
@@ -431,8 +431,9 @@ class SalesforceFunctions
      * @param mixed $data
      * @param int $successStatusCode
      * @param array<string, mixed> $additionalHeaders
+     * @param string $method
      * @return ResponseInterface
-     * @throws GuzzleException in case of an error response ({@see \GuzzleHttp\Exception\BadResponseException} or {@see \GuzzleHttp\Exception\RequestException}
+     * @throws GuzzleException in case of an error response (<a href="psi_element://\GuzzleHttp\Exception\BadResponseException">\GuzzleHttp\Exception\BadResponseException</a> or <a href="psi_element://\GuzzleHttp\Exception\RequestException">\GuzzleHttp\Exception\RequestException</a>
      * @throws SalesforceException On client error (auth, rate limit, etc.)
      */
     public function customEndpoint(string $customEndpoint, string $data, int $successStatusCode = 200, array $additionalHeaders = [], string $method = 'POST'): ResponseInterface

@@ -16,27 +16,27 @@ class PasswordAuthentication implements AuthenticationInterface
     /**
      * @var string
      */
-    protected $client;
+    protected string $client;
 
     /**
      * @var string
      */
-    protected $endPoint;
+    protected string $endPoint;
 
     /**
      * @var array
      */
-    protected $options;
+    protected array $options;
 
     /**
      * @var string
      */
-    protected $accessToken;
+    protected string $accessToken;
 
     /**
      * @var string
      */
-    protected $instanceUrl;
+    protected string $instanceUrl;
 
     /**
      * PasswordAuthentication constructor.
@@ -54,7 +54,7 @@ class PasswordAuthentication implements AuthenticationInterface
      * @throws SalesforceException
      * @throws GuzzleException
      */
-    public function authenticate()
+    public function authenticate(): void
     {
         $client = new Client();
 
@@ -79,7 +79,7 @@ class PasswordAuthentication implements AuthenticationInterface
     /**
      * @param string $endPoint
      */
-    public function setEndpoint($endPoint)
+    public function setEndpoint(string $endPoint): void
     {
         $this->endPoint = $endPoint;
     }
@@ -87,7 +87,7 @@ class PasswordAuthentication implements AuthenticationInterface
     /**
      * @return string
      */
-    public function getAccessToken()
+    public function getAccessToken(): string
     {
         return $this->accessToken;
     }
@@ -95,7 +95,7 @@ class PasswordAuthentication implements AuthenticationInterface
     /**
      * @return string
      */
-    public function getInstanceUrl()
+    public function getInstanceUrl(): string
     {
         return $this->instanceUrl;
     }

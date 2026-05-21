@@ -11,18 +11,18 @@ class SalesforceException extends Exception
     /**
      * @var string
      */
-    private static $errorMessage = "Salesforce request error";
+    private static string $errorMessage = "Salesforce request error";
 
     /**
      * @var array
      */
-    private $errors = [];
+    private array $errors = [];
 
     /**
      * @param ClientException $e
      * @return SalesforceException
      */
-    public static function fromClientException(ClientException $e)
+    public static function fromClientException(ClientException $e): SalesforceException
     {
         $responseString = $e->getResponse()->getBody()->getContents();
         $responseData = json_decode($responseString, true);
@@ -34,7 +34,7 @@ class SalesforceException extends Exception
     /**
      * @return array
      */
-    public function getErrors()
+    public function getErrors(): array
     {
         return $this->errors;
     }
@@ -42,7 +42,7 @@ class SalesforceException extends Exception
     /**
      * @param array $errors
      */
-    public function setErrors($errors)
+    public function setErrors(array $errors): void
     {
         $this->errors = $errors;
     }
